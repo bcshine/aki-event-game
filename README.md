@@ -1,46 +1,100 @@
-# Getting Started with Create React App
+# 아키아키 오마카세 이벤트 게임
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React로 구현된 카드 선택 이벤트 게임입니다.
 
-## Available Scripts
+## 🎮 게임 소개
 
-In the project directory, you can run:
+아키아키 오마카세에서 진행하는 행운의 카드 이벤트 게임입니다. 9개의 다이아몬드 카드 중 하나를 선택하여 다양한 상품을 받을 수 있습니다.
 
-### `npm start`
+### 게임 흐름
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. **Scene 1**: 시작 화면 - 게임 소개 및 시작
+2. **Scene 2**: 카드 선택 - 3x3 다이아몬드 카드 중 선택
+3. **Scene 3**: 추첨 과정 - 5초간 슬롯 머신 애니메이션
+4. **Scene 4**: 결과 발표 - 당첨/꽝 결과 표시
+5. **Scene 5**: 쿠폰 수령 - 당첨시 쿠폰 정보 제공
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 상품 목록
 
-### `npm test`
+- 전체 금액 10% 할인
+- 3만원 사케 증정
+- 5만원 요리 서비스
+- 명품 고급 젓가락 세트
+- 오리지널 블렌딩 호지차
+- 특별한 소금 세트
+- 편백나무(히노키) 큐브
+- 일본 고급 츠케모노
+- 꽝
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🛠 기술 스택
 
-### `npm run build`
+- **React 19.1.0** (TypeScript)
+- **Styled Components** - 스타일링
+- **Framer Motion** - 애니메이션
+- **Noto Sans KR** - 폰트
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🚀 실행 방법
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 개발 환경 실행
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+# 의존성 설치
+npm install
 
-### `npm run eject`
+# 개발 서버 실행
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+브라우저에서 `http://localhost:3000`으로 접속하여 게임을 플레이할 수 있습니다.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 빌드
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+# 프로덕션 빌드
+npm run build
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## 📱 반응형 디자인
 
-## Learn More
+모바일과 데스크톱 환경 모두에서 최적화된 경험을 제공합니다.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **데스크톱**: 1200px 이상
+- **태블릿**: 768px ~ 1199px
+- **모바일**: 767px 이하
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🎨 디자인 특징
+
+- **최신 트렌드**: 그라디언트 배경과 모던한 UI/UX
+- **애니메이션**: 부드러운 전환 효과와 상호작용
+- **접근성**: 명확한 버튼과 텍스트 대비
+- **효과**: 당첨시 폭죽, 꽝시 비행기 효과
+
+## 📂 프로젝트 구조
+
+```
+src/
+├── components/
+│   ├── Scene1.tsx      # 시작 화면
+│   ├── Scene2.tsx      # 카드 선택
+│   ├── Scene3.tsx      # 슬롯 애니메이션
+│   ├── Scene4.tsx      # 결과 발표
+│   └── Scene5.tsx      # 쿠폰 수령
+├── assets/
+│   └── aki.png         # 로고 이미지
+├── App.tsx             # 메인 앱 컴포넌트
+├── App.css             # 전역 스타일
+└── index.tsx           # 앱 진입점
+```
+
+## 🎯 주요 기능
+
+- **카드 호버 효과**: 마우스 오버시 카드 흔들림 애니메이션
+- **슬롯 머신**: 5초간 상품이 빠르게 변경되는 애니메이션
+- **당첨 확률**: 1/9 확률로 공정한 추첨
+- **쿠폰 생성**: 자동 쿠폰 코드 생성 및 유효기간 설정
+- **시각적 피드백**: 당첨/꽝에 따른 다른 시각 효과
+
+---
+
+만든이: Claude & 사용자  
+버전: 1.0.0
