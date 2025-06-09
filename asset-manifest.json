@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/aki-event-game/static/css/main.4e2f0a5f.css",
-    "main.js": "/aki-event-game/static/js/main.77de6bfd.js",
+    "main.css": "/aki-event-game/static/css/main.d3a02502.css",
+    "main.js": "/aki-event-game/static/js/main.c37a6e85.js",
     "static/js/453.0b6a5ca2.chunk.js": "/aki-event-game/static/js/453.0b6a5ca2.chunk.js",
     "index.html": "/aki-event-game/index.html",
-    "main.4e2f0a5f.css.map": "/aki-event-game/static/css/main.4e2f0a5f.css.map",
-    "main.77de6bfd.js.map": "/aki-event-game/static/js/main.77de6bfd.js.map",
+    "main.d3a02502.css.map": "/aki-event-game/static/css/main.d3a02502.css.map",
+    "main.c37a6e85.js.map": "/aki-event-game/static/js/main.c37a6e85.js.map",
     "453.0b6a5ca2.chunk.js.map": "/aki-event-game/static/js/453.0b6a5ca2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4e2f0a5f.css",
-    "static/js/main.77de6bfd.js"
+    "static/css/main.d3a02502.css",
+    "static/js/main.c37a6e85.js"
   ]
 }
