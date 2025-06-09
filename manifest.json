@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "아키이벤트",
+  "name": "아키아키 오마카세 이벤트 게임",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,9 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#667eea",
+  "background_color": "#ffffff",
+  "description": "아키아키 오마카세 레스토랑의 특별한 카드 뽑기 이벤트 게임",
+  "lang": "ko",
+  "orientation": "portrait"
 }
