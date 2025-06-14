@@ -127,6 +127,56 @@ const Scene5: React.FC<Scene5Props> = ({ result, onReset }) => {
           축하합니다. 쿠폰을 받으세요!
         </h1>
         
+        {/* 선택한 카드 표시 */}
+        <div className="selected-card-info" style={{
+          marginBottom: '2rem',
+          animation: 'cardReveal 0.8s ease-out'
+        }}>
+          <h3 style={{ 
+            color: '#333', 
+            marginBottom: '1rem',
+            fontSize: '1.2rem',
+            fontWeight: 'bold'
+          }}>
+            선택한 카드
+          </h3>
+          <div className="result-card">
+            <img 
+              src={result.selectedCard.imagePath} 
+              alt={`${result.selectedCard.suit} ${result.selectedCard.value}`}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                borderRadius: '10px',
+              }}
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+                const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
+                if (nextElement) {
+                  nextElement.style.display = 'flex';
+                }
+              }}
+            />
+            <div 
+              style={{
+                display: 'none',
+                width: '100%',
+                height: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '2rem',
+                fontWeight: 'bold',
+                color: '#333',
+                backgroundColor: '#f0f0f0',
+                borderRadius: '10px'
+              }}
+            >
+              {result.selectedCard.value === 'JOKER' ? '🃏' : result.selectedCard.value}
+            </div>
+          </div>
+        </div>
+
         <div className="coupon" style={{
           animation: 'slideInUp 1s ease-out 0.3s both',
           background: 'white',
@@ -261,6 +311,33 @@ const Scene5: React.FC<Scene5Props> = ({ result, onReset }) => {
 
       <style>
         {`
+          .result-card {
+            width: 120px;
+            height: 168px;
+            background: #ffffff;
+            border: 2px solid #333;
+            border-radius: 12px;
+            margin: 0 auto;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+          }
+
+          .result-card:hover {
+            transform: scale(1.05);
+          }
+
+          @keyframes cardReveal {
+            from {
+              opacity: 0;
+              transform: translateY(-20px) scale(0.8);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0) scale(1);
+            }
+          }
+
           @keyframes fadeInUp {
             from {
               opacity: 0;

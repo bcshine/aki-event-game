@@ -1,61 +1,58 @@
 import React, { useState } from 'react';
+import { SelectedCard } from '../App';
 
 interface Scene2Props {
-  onCardSelect: (cardNumber: number) => void;
+  onCardSelect: (cardNumber: number, selectedCard: SelectedCard) => void;
 }
 
 interface Card {
   id: number;
   value: string;
   suit: string;
-  color: string;
-  symbol: string;
+  imagePath: string;
 }
 
 const Scene2: React.FC<Scene2Props> = ({ onCardSelect }) => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
-  // 다양한 카드 생성
+  // 실제 이미지 파일들을 사용한 카드 생성
   const generateRandomCards = (): Card[] => {
-    const suits = [
-      { name: 'diamond', symbol: '♦', color: '#e74c3c' },
-      { name: 'heart', symbol: '♥', color: '#e74c3c' },
-      { name: 'spade', symbol: '♠', color: '#2c3e50' },
-      { name: 'club', symbol: '♣', color: '#2c3e50' }
+    const availableCards = [
+      // 조커 카드들
+      { value: 'JOKER', suit: 'joker', imagePath: `${process.env.PUBLIC_URL}/images/j1.jpg` },
+      { value: 'JOKER', suit: 'joker', imagePath: `${process.env.PUBLIC_URL}/images/j2.png` },
+      
+      // 하트 카드들
+      { value: 'A', suit: 'heart', imagePath: `${process.env.PUBLIC_URL}/images/ha.jpg` },
+      { value: 'J', suit: 'heart', imagePath: `${process.env.PUBLIC_URL}/images/hj.webp` },
+      { value: 'Q', suit: 'heart', imagePath: `${process.env.PUBLIC_URL}/images/hq.png` },
+      { value: 'K', suit: 'heart', imagePath: `${process.env.PUBLIC_URL}/images/hk.jpg` },
+      
+      // 스페이드 카드들
+      { value: 'A', suit: 'spade', imagePath: `${process.env.PUBLIC_URL}/images/sa.jpg` },
+      { value: 'J', suit: 'spade', imagePath: `${process.env.PUBLIC_URL}/images/sj.png` },
+      { value: 'Q', suit: 'spade', imagePath: `${process.env.PUBLIC_URL}/images/sq.jpg` },
+      { value: 'K', suit: 'spade', imagePath: `${process.env.PUBLIC_URL}/images/sk.jpg` },
+      
+      // 클럽 카드들
+      { value: 'A', suit: 'club', imagePath: `${process.env.PUBLIC_URL}/images/c1.png` },
+      { value: 'J', suit: 'club', imagePath: `${process.env.PUBLIC_URL}/images/cj.jpg` },
+      { value: 'Q', suit: 'club', imagePath: `${process.env.PUBLIC_URL}/images/cq.jpg` },
+      { value: 'K', suit: 'club', imagePath: `${process.env.PUBLIC_URL}/images/ck.jpg` },
+      
+      // 다이아몬드 카드들
+      { value: 'A', suit: 'diamond', imagePath: `${process.env.PUBLIC_URL}/images/da.jpg` },
+      { value: 'J', suit: 'diamond', imagePath: `${process.env.PUBLIC_URL}/images/dj.jpg` },
+      { value: 'Q', suit: 'diamond', imagePath: `${process.env.PUBLIC_URL}/images/dq.jpg` },
+      { value: 'K', suit: 'diamond', imagePath: `${process.env.PUBLIC_URL}/images/dk.jpg` },
     ];
-    
-    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-    const specialCards = [
-      { value: 'JOKER', suit: 'joker', color: '#8e44ad', symbol: '🃏' }
-    ];
-    
-    const allCards = [];
-    
-    // 일반 카드들
-    suits.forEach(suit => {
-      values.forEach(value => {
-        allCards.push({
-          value,
-          suit: suit.name,
-          color: suit.color,
-          symbol: suit.symbol
-        });
-      });
-    });
-    
-    // 조커 추가
-    allCards.push(...specialCards);
     
     // 9장 랜덤 선택
-    const selectedCards = [];
-    const shuffled = [...allCards].sort(() => Math.random() - 0.5);
-    
-    for (let i = 0; i < 9; i++) {
-      selectedCards.push({
-        id: i + 1,
-        ...shuffled[i]
-      });
-    }
+    const shuffled = [...availableCards].sort(() => Math.random() - 0.5);
+    const selectedCards = shuffled.slice(0, 9).map((card, index) => ({
+      id: index + 1,
+      ...card
+    }));
     
     return selectedCards;
   };
@@ -63,7 +60,10 @@ const Scene2: React.FC<Scene2Props> = ({ onCardSelect }) => {
   const [cards] = useState<Card[]>(generateRandomCards());
 
   const handleCardClick = (cardNumber: number) => {
-    onCardSelect(cardNumber);
+    const selectedCard = cards.find(card => card.id === cardNumber);
+    if (selectedCard) {
+      onCardSelect(cardNumber, selectedCard);
+    }
   };
 
   const handleCardHover = (cardNumber: number) => {
@@ -72,78 +72,6 @@ const Scene2: React.FC<Scene2Props> = ({ onCardSelect }) => {
 
   const handleCardLeave = () => {
     setHoveredCard(null);
-  };
-
-  const renderCardContent = (card: Card) => {
-    const symbolStyle = {
-      color: card.color,
-      fontSize: '1.8rem',
-      lineHeight: '1'
-    };
-
-    // 조커 카드
-    if (card.suit === 'joker') {
-      return (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-          <span style={{ fontSize: '3rem' }}>🃏</span>
-        </div>
-      );
-    }
-
-    // J, Q, K, A 카드
-    if (['J', 'Q', 'K', 'A'].includes(card.value)) {
-      return (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', flexDirection: 'column' }}>
-          <span style={{ ...symbolStyle, fontSize: '2.5rem' }}>{card.value}</span>
-          <span style={{ ...symbolStyle, fontSize: '1.5rem', marginTop: '0.3rem' }}>{card.symbol}</span>
-        </div>
-      );
-    }
-
-    // 숫자 카드 (2-10)
-    const numValue = parseInt(card.value);
-    if (numValue >= 2 && numValue <= 10) {
-      const symbols = Array(numValue).fill(card.symbol);
-      
-      if (numValue <= 3) {
-        return (
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', alignItems: 'center' }}>
-            {symbols.map((symbol, idx) => (
-              <span key={idx} style={{ ...symbolStyle, transform: idx === symbols.length - 1 && numValue > 1 ? 'rotate(180deg)' : 'none' }}>
-                {symbol}
-              </span>
-            ))}
-          </div>
-        );
-      } else if (numValue <= 6) {
-        return (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: `repeat(${Math.ceil(numValue / 2)}, 1fr)`, height: '100%', gap: '0.2rem', placeItems: 'center' }}>
-            {symbols.map((symbol, idx) => (
-              <span key={idx} style={{ ...symbolStyle, transform: idx >= Math.ceil(numValue / 2) ? 'rotate(180deg)' : 'none' }}>
-                {symbol}
-              </span>
-            ))}
-          </div>
-        );
-      } else {
-        return (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: 'repeat(4, 1fr)', height: '100%', gap: '0.1rem', placeItems: 'center' }}>
-            {symbols.slice(0, Math.min(8, numValue)).map((symbol, idx) => (
-              <span key={idx} style={{ ...symbolStyle, transform: idx >= 4 ? 'rotate(180deg)' : 'none' }}>
-                {symbol}
-              </span>
-            ))}
-            {numValue > 8 && (
-              <span style={{ ...symbolStyle, gridColumn: '1 / 3', justifySelf: 'center' }}>
-                {card.symbol}
-              </span>
-            )}
-          </div>
-        );
-      }
-    }
-
-    return null;
   };
 
   return (
@@ -179,30 +107,39 @@ const Scene2: React.FC<Scene2Props> = ({ onCardSelect }) => {
                 : '0 8px 25px rgba(0, 0, 0, 0.15)'
             }}
           >
-            {card.suit !== 'joker' && (
-              <>
-                <div className="card-corner top-left">
-                  <div className="card-number" style={{ color: card.color }}>
-                    {card.value}
-                  </div>
-                  <div className="card-suit" style={{ color: card.color }}>
-                    {card.symbol}
-                  </div>
-                </div>
-                
-                <div className="card-corner bottom-right">
-                  <div className="card-number" style={{ color: card.color }}>
-                    {card.value}
-                  </div>
-                  <div className="card-suit" style={{ color: card.color }}>
-                    {card.symbol}
-                  </div>
-                </div>
-              </>
-            )}
-            
-            <div className="card-center">
-              {renderCardContent(card)}
+            <img 
+              src={card.imagePath} 
+              alt={`${card.suit} ${card.value}`}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                borderRadius: '10px',
+              }}
+              onError={(e) => {
+                // 이미지 로드 실패 시 대체 텍스트 표시
+                e.currentTarget.style.display = 'none';
+                const nextElement = e.currentTarget.nextElementSibling as HTMLElement;
+                if (nextElement) {
+                  nextElement.style.display = 'flex';
+                }
+              }}
+            />
+            <div 
+              style={{
+                display: 'none',
+                width: '100%',
+                height: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '1.5rem',
+                fontWeight: 'bold',
+                color: '#333',
+                backgroundColor: '#f0f0f0',
+                borderRadius: '10px'
+              }}
+            >
+              {card.value === 'JOKER' ? '🃏' : `${card.value}`}
             </div>
           </button>
         ))}
@@ -220,51 +157,9 @@ const Scene2: React.FC<Scene2Props> = ({ onCardSelect }) => {
             display: flex;
             flex-direction: column;
             position: relative;
-            padding: 8px;
+            padding: 0;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            font-family: 'Noto Sans KR', sans-serif;
-            font-weight: 700;
-          }
-          
-          .card-corner {
-            position: absolute;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 0.9rem;
-            line-height: 1;
-          }
-          
-          .top-left {
-            top: 8px;
-            left: 8px;
-          }
-          
-          .bottom-right {
-            bottom: 8px;
-            right: 8px;
-            transform: rotate(180deg);
-          }
-          
-          .card-number {
-            color: #e74c3c;
-            font-weight: bold;
-            font-size: 1rem;
-          }
-          
-          .card-suit {
-            color: #e74c3c;
-            font-size: 0.8rem;
-            margin-top: 2px;
-          }
-          
-          .card-center {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 25px 10px;
-            position: relative;
+            overflow: hidden;
           }
           
           @keyframes cardAppear {

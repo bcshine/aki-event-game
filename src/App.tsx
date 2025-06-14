@@ -7,8 +7,16 @@ import Scene4 from './components/Scene4';
 import Scene5 from './components/Scene5';
 
 
+export interface SelectedCard {
+  id: number;
+  value: string;
+  suit: string;
+  imagePath: string;
+}
+
 export interface GameResult {
   cardNumber: number;
+  selectedCard: SelectedCard;
   prize: string;
   isWin: boolean;
 }
@@ -26,7 +34,7 @@ function App() {
     setGameResult(null);
   };
 
-  const handleCardSelect = (cardNumber: number) => {
+  const handleCardSelect = (cardNumber: number, selectedCard: SelectedCard) => {
     // 상품 목록 (1/9 확률)
     const prizes = [
       "전체 금액 10% 할인",
@@ -46,6 +54,7 @@ function App() {
 
     setGameResult({
       cardNumber,
+      selectedCard,
       prize,
       isWin
     });
