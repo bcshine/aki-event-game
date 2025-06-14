@@ -52,13 +52,14 @@ function App() {
     const prize = prizes[randomIndex];
     const isWin = prize !== "아쉽지만, 꽝!";
 
-    setGameResult({
+    const result: GameResult = {
       cardNumber,
       selectedCard,
       prize,
       isWin
-    });
+    };
 
+    setGameResult(result);
     nextScene();
   };
 
